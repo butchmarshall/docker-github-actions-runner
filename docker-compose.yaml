@@ -1,0 +1,24 @@
+services:
+  runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        RUNNER_VERSION: ${RUNNER_VERSION:-2.319.1}
+        GID: ${GID:-140}
+    restart: always
+    environment:
+      - REPO=${REPO:-butchmarshall/docker-github-actions-runner} # Default to 'butchmarshall/docker-github-actions-runner' if REPO is not set
+      - TOKEN=${TOKEN:-} # Default token if TOKEN is not set
+    deploy:
+      mode: replicated
+      replicas: ${REPLICAS:-1}
+      resources:
+        limits:
+          cpus: "${CPU_LIMIT:-4.00}"
+          memory: "${MEMORY_LIMIT:-2048M}"
+        reservations:
+          cpus: "${CPU_RESERVATION:-1.00}"
+          memory: "${MEMORY_RESERVATION:-1024M}"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Bind mount the Docker socket
