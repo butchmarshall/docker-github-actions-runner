@@ -28,12 +28,12 @@ cd docker-github-actions-runner
 
 We must build the base image with the GID of the docker group in order to bind to the docker socket
 
-Replace <YOUR_GITHUB_RUNNER_TOKEN> with the runner token found under Settings -> Actions -> Runners of your repository.
+Replace `<YOUR_GITHUB_RUNNER_TOKEN>` with the runner token found under [Settings -> Actions -> Runners] of your repository.
 
-Replace <GITHUB_RUNNER_TARGET_REPO> with the repository you want to use your runner with (e.g. butchmarshall/docker-github-actions-runner)
+Replace `<GITHUB_RUNNER_TARGET_REPO>` with the repository you want to use your runner with (e.g. butchmarshall/docker-github-actions-runner)
 
 ```bash
-TOKEN=<YOUR_GITHUB_RUNNER_TOKEN> REPO=<GITHUB_RUNNER_TARGET_REPO> GID=$(getent group docker | cut -d: -f3); docker-compose build
+TOKEN=<YOUR_GITHUB_RUNNER_TOKEN> REPO=<GITHUB_RUNNER_TARGET_REPO> GID=$(getent group docker | cut -d: -f3); docker compose build
 ```
 
 ## Example Github Action
